@@ -20,10 +20,19 @@ public class PersonService {
     this.repo = repo;
   }
 
+  /**
+   * retourne la liste des personnes
+   * @return
+   */
   public List<Person> findAll() {
     return repo.findAllPersons();
   }
 
+  /**
+   * creqtion d4une personne
+   * @param person
+   * @return
+   */
   public Person create(Person person) {
     repo.findPerson(person.getFirstName(), person.getLastName())
         .ifPresent(p -> { throw new ConflictException("Person already exists: " + key(person)); });
@@ -32,6 +41,11 @@ public class PersonService {
     return person;
   }
 
+  /**
+   * mettre a jour une personne
+   * @param person
+   * @return
+   */
   public Person update(Person person) {
     repo.findPerson(person.getFirstName(), person.getLastName())
         .orElseThrow(() -> new NotFoundException("Person not found: " + key(person)));
@@ -47,7 +61,13 @@ public class PersonService {
     log.debug("Deleted person {} {}", firstName, lastName);
   }
 
+  /**
+   * cette fonction construit une cle contextuelle a partir de lobjet personne
+   * @param p
+   * @return
+   */
   private static String key(Person p) {
     return p.getFirstName() + " " + p.getLastName();
   }
+
 }

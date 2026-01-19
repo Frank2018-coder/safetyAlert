@@ -22,20 +22,38 @@ public class PersonController {
     this.service = service;
   }
 
+  /**
+   *  ajouter une nouvelle personne ;
+   * @param person
+   * @return
+   */
   @PostMapping("/person")
   @ResponseStatus(HttpStatus.CREATED)
   public Person create(@Valid @RequestBody Person person) {
     return service.create(person);
   }
 
+  /**
+   * mettre à jour une personne existante (pour le moment, supposons que le prénom et le nom de
+   * famille ne changent pas, mais que les autres champs peuvent être modifiés) ;
+   * @param person
+   * @return
+   */
   @PutMapping("/person")
   public Person update(@Valid @RequestBody Person person) {
     return service.update(person);
   }
 
+  /**
+   * supprimer une personne (utilisez une combinaison de prénom et de nom comme identificateur
+   * unique).
+   * @param firstName
+   * @param lastName
+   */
   @DeleteMapping("/person")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
     service.delete(firstName, lastName);
   }
+
 }

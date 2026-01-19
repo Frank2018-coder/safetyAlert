@@ -22,18 +22,33 @@ public class FirestationController {
     this.service = service;
   }
 
+  /**
+   * ajout d'un mapping caserne/adresse ;
+   * @param mapping
+   * @return
+   */
   @PostMapping("/firestation")
   @ResponseStatus(HttpStatus.CREATED)
   public FirestationMapping create(@Valid @RequestBody FirestationMapping mapping) {
     return service.create(mapping);
   }
 
+  /**
+   * mettre à jour le numéro de la caserne de pompiers d'une adresse ;
+   * @param address
+   * @param station
+   */
   @PutMapping("/firestation")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateStation(@RequestParam("address") String address, @RequestParam("station") String station) {
     service.updateStationForAddress(address, station);
   }
 
+  /**
+   * supprimer le mapping d'une caserne ou d'une adresse.
+   * @param address
+   * @param station
+   */
   @DeleteMapping("/firestation")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@RequestParam(value = "address", required = false) String address,

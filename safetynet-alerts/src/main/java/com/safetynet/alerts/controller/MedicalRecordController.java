@@ -22,17 +22,34 @@ public class MedicalRecordController {
     this.service = service;
   }
 
+  /**
+   * ajout dun dossier medical
+   * @param record
+   * @return
+   */
   @PostMapping("/medicalRecord")
   @ResponseStatus(HttpStatus.CREATED)
   public MedicalRecord create(@Valid @RequestBody MedicalRecord record) {
     return service.create(record);
   }
 
+  /**
+   * mettre à jour un dossier médical existant (comme évoqué précédemment, supposer que le
+   * prénom et le nom de famille ne changent pas) ;
+   * @param record
+   * @return
+   */
   @PutMapping("/medicalRecord")
   public MedicalRecord update(@Valid @RequestBody MedicalRecord record) {
     return service.update(record);
   }
 
+  /**
+   * supprimer un dossier médical (utilisez une combinaison de prénom et de nom comme
+   * identificateur unique)
+   * @param firstName
+   * @param lastName
+   */
   @DeleteMapping("/medicalRecord")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
